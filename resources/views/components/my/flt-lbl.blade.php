@@ -81,7 +81,7 @@
     @if ($hasError)
         <p
             id="{{ $errorId }}"
-            class="mt-1 text-center text-sm font-light text-red-600 dark:text-red-400"
+            class="mt-1 text-center text-xs font-light text-red-600 dark:text-red-400"
         >
             {{ $errors->first($name) }}
         </p>
