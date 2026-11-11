@@ -5,8 +5,17 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
+
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
+            <x-my.flt-lbl
+                name="f_name_fa"
+                label="نام و نام خانوادگی"
+                :required="true"
+            />
+
+
+            <br>
             <!-- Name -->
             <flux:input
                 name="name"
