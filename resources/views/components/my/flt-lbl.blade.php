@@ -67,12 +67,12 @@
 
             peer-not-placeholder-shown:-top-2.5
             peer-not-placeholder-shown:right-1.5
-            peer-not-placeholder-shown:bg-zinc-200
+            peer-not-placeholder-shown:bg-zinc-200 dark:peer-not-placeholder-shown:bg-zinc-600
             peer-not-placeholder-shown:px-1.5
             peer-not-placeholder-shown:py-0.5
             peer-not-placeholder-shown:text-xs
             peer-not-placeholder-shown:font-medium
-            peer-not-placeholder-shown:text-zinc-700
+            peer-not-placeholder-shown:text-zinc-600 dark:peer-not-placeholder-shown:text-zinc-200
         "
     >
         {{ $label }}
