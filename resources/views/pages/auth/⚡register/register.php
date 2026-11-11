@@ -1,8 +1,8 @@
 <?php
 
+use App\Support\Digits;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 new
@@ -10,11 +10,18 @@ new
 #[Title('ثبت نام')]
 class extends Component
 {
-    #[Validate('bail|required|digits:11|starts_with:09')]
     public string $mobile = '';
 
-    public function save(){
-        $this->validate();
+    protected function rules(): array
+    {
+        return [
+            'mobile' => 'bail|required|digits:11|starts_with:09',
+        ];
+    }
+    public function submit(): void
+    {
+        $this->mobile = Digits::toEnglish($this->mobile);
 
+        $this->validate();
     }
 };

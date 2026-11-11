@@ -19,7 +19,7 @@
     $errorId = $inputId . '-error';
     $borderClass = $hasError
     ? 'border-red-500 focus:border-red-500'
-    : 'border-gray-400';
+    : 'border-gray-400 focus:border-blue-500';
 @endphp
 
 <div class="relative">
@@ -52,7 +52,7 @@
     <label
         for="{{ $inputId }}"
         class="
-            absolute right-3 top-3 text-sm
+            absolute right-3 top-3.5 text-sm
             {{ $hasError ? 'text-red-600 dark:text-red-400' : 'text-stone-600 dark:text-stone-400' }}
             transition-all duration-200
 
