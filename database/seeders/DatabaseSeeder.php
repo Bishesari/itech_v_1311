@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PersonSeeder::class,
             MobileSeeder::class,
             UserSeeder::class,
+            MobilePersonSeeder::class,
         ]);
     }
 }

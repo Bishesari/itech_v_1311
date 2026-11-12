@@ -1,4 +1,12 @@
-<div>
+<div
+    x-data="{ fingerprintReady: false }"
+    x-init="
+        window.getFingerprint().then(value => {
+            $wire.fingerprint = value;
+            fingerprintReady = true;
+        })
+    "
+>
     <flux:card body="divided" variant="soft" size="xs" class="w-80">
 
         <flux:card.header class="text-center">
@@ -22,7 +30,16 @@
             </flux:card.body>
             <flux:card.footer>
 
-                <flux:button type="submit" variant="filled" color="sky" size="sm" class="cursor-pointer">{{__('ثبت نام')}}</flux:button>
+                <flux:button
+                    type="submit"
+                    variant="filled"
+                    color="sky"
+                    size="sm"
+                    class="cursor-pointer"
+                    x-bind:disabled="!fingerprintReady"
+                >
+                    {{ __('ثبت نام') }}
+                </flux:button>
                 <flux:card.actions>
                     <flux:button :href="route('login')" wire:navigate variant="subtle" icon:trailing="arrow-left-end-on-rectangle"
                                  size="xs" class="cursor-pointer"

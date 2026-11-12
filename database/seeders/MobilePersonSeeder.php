@@ -13,8 +13,37 @@ class MobilePersonSeeder extends Seeder
      */
     public function run(): void
     {
-        MobilePerson::query()->updateOrCreate([
-            
-        ]);
+        MobilePerson::query()->updateOrCreate(
+            [
+                'person_id' => 1,
+                'mobile_id' => 1,
+            ],
+            [
+                'is_primary' => true,
+                'is_verified' => true,
+            ],
+        );
+
+        MobilePerson::query()->updateOrCreate(
+            [
+                'person_id' => 1,
+                'mobile_id' => 2,
+            ],
+            [
+                'is_primary' => false,
+                'is_verified' => true,
+            ],
+        );
+
+        MobilePerson::query()->updateOrCreate(
+            [
+                'person_id' => 2,
+                'mobile_id' => 3,
+            ],
+            [
+                'is_primary' => true,
+                'is_verified' => true,
+            ],
+        );
     }
 }
