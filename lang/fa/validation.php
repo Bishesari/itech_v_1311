@@ -198,7 +198,7 @@ return [
     */
 
     'attributes' => [
-        'mobile' => 'شماره موبایل',
+        'number' => 'شماره موبایل',
 
     ],
 

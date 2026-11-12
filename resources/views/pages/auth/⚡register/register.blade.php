@@ -10,7 +10,7 @@
         <form wire:submit="submit" autocomplete="off">
             <flux:card.body class="space-y-6">
                 <x-my.flt-lbl
-                    name="mobile"
+                    name="number"
                     label="{{ __('شماره موبایل') }}"
                     :required="true"
                     dir="ltr"
