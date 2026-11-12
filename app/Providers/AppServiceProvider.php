@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\SmsGateway;
+use App\Services\Sms\SmsIrSmsGateway;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
+        $this->app->bind(
+            SmsGateway::class,
+            SmsIrSmsGateway::class,
+        );
     }
 
     /**

@@ -53,5 +53,101 @@
             </flux:card.footer>
         </form>
     </flux:card>
+
+
+
+    <flux:modal name="verify-mobile" class="md:w-80">
+        <div
+            x-data="{
+            remaining: 0,
+            expiresAt: @js($otpExpiresAt),
+            timer: null,
+
+            init() {
+                this.updateTimer();
+
+                this.timer = setInterval(() => {
+                    this.updateTimer();
+                }, 1000);
+            },
+
+            updateTimer() {
+                this.remaining = Math.max(
+                    0,
+                    this.expiresAt - Math.floor(Date.now() / 1000)
+                );
+            },
+
+            formatTime() {
+                const minutes = Math.floor(this.remaining / 60);
+                const seconds = this.remaining % 60;
+
+                return String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+            },
+        }"
+            x-effect="
+            if (expiresAt !== @js($otpExpiresAt)) {
+                expiresAt = @js($otpExpiresAt);
+                updateTimer();
+            }
+        "
+            x-on:alpine:destroy="clearInterval(timer)"
+            class="space-y-6"
+        >
+            <div>
+                <flux:heading size="lg">{{__('تأیید شماره موبایل')}}</flux:heading>
+                <flux:text class="mt-2">{{__('کد تأیید ارسال‌شده به شماره موبایل خود را وارد کنید.')}}</flux:text>
+            </div>
+
+            <flux:otp wire:model="verificationCode" label="کد تأیید" label:sr-only :error:icon="false" inputmode="numeric"
+                      error:class="text-center" class="mx-auto" dir="ltr">
+                <flux:otp.input autofocus/>
+                <flux:otp.input />
+                <flux:otp.input />
+                <flux:otp.separator />
+                <flux:otp.input />
+                <flux:otp.input />
+                <flux:otp.input />
+            </flux:otp>
+            @error('verificationCode')
+            <flux:text color="red" size="sm">
+                {{ $message }}
+            </flux:text>
+            @enderror
+
+            <flux:text class="font-medium text-center" dir="ltr">
+                {{ $number }}
+            </flux:text>
+            <flux:text class="text-center" aria-live="polite">
+                <span x-show="remaining > 0">
+        زمان باقی‌مانده:
+        <span
+            dir="ltr"
+            class="font-semibold tabular-nums font-mono"
+            x-text="formatTime()"
+        ></span>
+    </span>
+
+                    <span x-show="remaining <= 0">
+        کد تأیید منقضی شده است.
+    </span>
+                </flux:text>
+
+
+                <flux:button
+                    wire:click="verifyOtp"
+                    variant="filled"
+                    color="sky"
+                    class="w-full cursor-pointer"
+                >
+                    تأیید کد
+                </flux:button>
+            </div>
+
+    </flux:modal>
+
+
+
 </div>
 
