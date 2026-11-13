@@ -306,4 +306,17 @@ class extends Component
             navigate: true,
         );
     }
+    public function clearVerificationErrors(): void
+    {
+        $this->reset('verificationCode');
+        $this->resetValidation('verificationCode');
+    }
+    public function closeExpiredOtpModal(): void
+    {
+        $this->verificationCode = '';
+
+        $this->resetValidation('verificationCode');
+
+        Flux::modal('verify-mobile')->close();
+    }
 };
