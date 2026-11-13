@@ -148,10 +148,7 @@ class extends Component
 
     public function verifyOtp(OtpService $otpService): void
     {
-        $this->verificationCode = Digits::toEnglish(
-            $this->verificationCode,
-        );
-
+        $this->verificationCode = Digits::toEnglish($this->verificationCode);
         $this->number = Digits::toEnglish($this->number);
 
         $this->resetValidation('verificationCode');

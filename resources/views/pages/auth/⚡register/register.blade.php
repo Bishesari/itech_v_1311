@@ -93,7 +93,7 @@
             </flux:heading>
 
             <form wire:submit="verifyOtp">
-                <flux:otp wire:model="verificationCode" label="کد تأیید" label:sr-only inputmode="numeric"
+                <flux:otp wire:model="verificationCode" label="کد تأیید" label:sr-only
                           error:class="text-center" class="mx-auto font-instrument-sans" dir="ltr">
                     <flux:otp.group>
                         <flux:otp.input autofocus/>
