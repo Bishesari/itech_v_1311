@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('identity', 20)->nullable()->unique();
 
-            $table->boolean('gender')->nullable();
+            $table->unsignedTinyInteger('gender')->nullable();
             $table->string('first_name_fa', 30)->nullable();
             $table->string('last_name_fa', 40)->nullable();
             $table->string('nickname', 30)->nullable();

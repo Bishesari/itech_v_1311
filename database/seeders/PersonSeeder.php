@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Gender;
 use App\Enums\Nationality;
 use App\Models\Person;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,7 @@ class PersonSeeder extends Seeder
             ],
             [
                 'nationality' => Nationality::Iranian,
+                'gender' => Gender::MALE,
                 'first_name_fa' => 'یاسر',
                 'last_name_fa' => 'بیشه سری',
             ],
@@ -30,6 +32,7 @@ class PersonSeeder extends Seeder
             ],
             [
                 'nationality' => Nationality::Iranian,
+                'gender' => Gender::FEMALE,
                 'first_name_fa' => 'ندا',
                 'last_name_fa' => 'بخشی زاده',
             ],
@@ -41,6 +44,7 @@ class PersonSeeder extends Seeder
             ],
             [
                 'nationality' => Nationality::Iranian,
+                'gender' => Gender::FEMALE,
                 'first_name_fa' => 'سیده لیلا',
                 'last_name_fa' => 'امامی',
             ],

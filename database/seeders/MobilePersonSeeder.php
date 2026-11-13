@@ -45,5 +45,26 @@ class MobilePersonSeeder extends Seeder
                 'is_verified' => true,
             ],
         );
+        MobilePerson::query()->updateOrCreate(
+            [
+                'person_id' => 2,
+                'mobile_id' => 4,
+            ],
+            [
+                'is_primary' => false,
+                'is_verified' => true,
+            ],
+        );
+
+        MobilePerson::query()->updateOrCreate(
+            [
+                'person_id' => 3,
+                'mobile_id' => 5,
+            ],
+            [
+                'is_primary' => true,
+                'is_verified' => true,
+            ],
+        );
     }
 }
