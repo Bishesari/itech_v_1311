@@ -45,7 +45,7 @@
                     />
 
                     @error('mobile')
-                    <flux:text color="danger" size="sm">{{ $message }}</flux:text>
+                    <flux:text color="red" size="sm">{{ $message }}</flux:text>
                     @enderror
 
                     <div
@@ -155,7 +155,7 @@
                         />
 
                         @error('verificationCode')
-                        <flux:text color="danger" size="sm">{{ $message }}</flux:text>
+                        <flux:text color="red" size="sm">{{ $message }}</flux:text>
                         @enderror
 
                         <flux:button
@@ -188,7 +188,7 @@
                     </flux:radio.group>
 
                     @error('selectedPersonId')
-                    <flux:text color="danger" size="sm">{{ $message }}</flux:text>
+                    <flux:text color="red" size="sm">{{ $message }}</flux:text>
                     @enderror
 
                     <flux:button
@@ -226,7 +226,7 @@
                     </flux:button>
 
                     @error('mobile')
-                    <flux:text color="danger" size="sm">{{ $message }}</flux:text>
+                    <flux:text color="red" size="sm">{{ $message }}</flux:text>
                     @enderror
                 </div>
 

@@ -79,7 +79,7 @@ class extends Component
 
         $mobile = Mobile::query()
             ->where('number', $this->mobile)
-            ->whereHas('people', fn ($query) => $query->wherePivot('is_verified', true))
+            ->whereHas('people', fn ($query) => $query->where('mobile_person.is_verified', true))
             ->first();
 
         if ($mobile === null) {
@@ -197,10 +197,10 @@ class extends Component
     {
         $mobile = Mobile::query()
             ->where('number', $this->pendingMobile)
-            ->whereHas('people', fn ($query) => $query->wherePivot('is_verified', true))
+            ->whereHas('people', fn ($query) => $query->where('mobile_person.is_verified', true))
             ->with([
                 'people' => fn ($query) => $query
-                    ->wherePivot('is_verified', true)
+                    ->where('mobile_person.is_verified', true)
                     ->whereHas('user')
                     ->with('user:id,person_id,username'),
             ])
@@ -323,7 +323,7 @@ class extends Component
             ->whereKey($this->selectedPersonId)
             ->whereHas('mobiles', fn ($query) => $query
                 ->where('mobiles.number', $this->verifiedMobile)
-                ->wherePivot('is_verified', true))
+                ->where('mobile_person.is_verified', true))
             ->with('user')
             ->first();
 
