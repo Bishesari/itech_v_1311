@@ -103,11 +103,7 @@ final class SmsIrSmsGateway implements SmsGateway
                 || ! is_array($result)
                 || ($result['status'] ?? null) !== 1
             ) {
-                throw new SmsDeliveryException(
-                    is_array($result) && is_string($result['message'] ?? null)
-                        ? $result['message']
-                        : $failureMessage,
-                );
+                throw new SmsDeliveryException($failureMessage);
             }
         } catch (SmsDeliveryException $e) {
             throw $e;
