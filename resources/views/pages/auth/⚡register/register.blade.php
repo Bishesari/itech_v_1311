@@ -23,7 +23,7 @@
     <flux:card body="divided" variant="soft" size="xs" class="w-75">
 
         <flux:card.header class="text-center">
-            <flux:card.heading class="font-bold!">{{__('فرم ثبت نام')}}</flux:card.heading>
+            <flux:card.heading class="font-bold! text-blue-500">{{__('فرم ثبت نام')}}</flux:card.heading>
             <flux:card.subheading class="font-medium! text-xs!">{{__('برای شروع، شماره موبایل خود را وارد کنید.')}}</flux:card.subheading>
         </flux:card.header>
 

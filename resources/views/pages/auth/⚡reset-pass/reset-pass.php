@@ -48,6 +48,9 @@ class extends Component
     #[Locked]
     public ?string $pendingFingerprint = null;
 
+    #[Locked]
+    public ?int $sendLimitExpiresAt = null;
+
     protected function rules(): array
     {
         return [
@@ -73,6 +76,7 @@ class extends Component
         $this->otpVerified = false;
         $this->accounts = [];
         $this->selectedPersonId = null;
+        $this->sendLimitExpiresAt = null;
 
         $this->validateOnly('mobile');
         $this->validateOnly('fingerprint');
@@ -111,14 +115,21 @@ class extends Component
         match ($result['status']) {
             'sent', 'active' => $this->handleOtpSent($result),
 
-            'recipient_limited', 'ip_limited', 'fingerprint_limited' => $this->addError(
-                'mobile',
-                'درخواست ارسال کد بیش از حد مجاز است. لطفاً کمی بعد دوباره تلاش کنید.',
-            ),
+            'recipient_limited', 'ip_limited', 'fingerprint_limited' => $this->handleSendRateLimit($result),
 
             default => throw new LogicException('Unexpected OTP send status.'),
         };
 
+    }
+
+    private function handleSendRateLimit(array $result): void
+    {
+        $this->sendLimitExpiresAt = now()->timestamp + $result['seconds'];
+
+        $this->addError(
+            'mobile',
+            'برای این شماره اخیراً کد تأیید ارسال شده است. لطفاً پس از پایان زمان باقی‌مانده مجدداً تلاش کنید.',
+        );
     }
 
     private function handleOtpSent(array $result): void

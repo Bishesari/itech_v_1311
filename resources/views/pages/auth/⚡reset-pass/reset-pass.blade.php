@@ -66,6 +66,39 @@
                          class="text-center text-xs text-red-500">
                         {{ __('آماده‌سازی اطلاعات مرورگر با خطا مواجه شد. صفحه را دوباره بارگذاری کنید.') }}
                     </div>
+
+                    @if ($sendLimitExpiresAt)
+                        <div
+                            x-data="{
+                                remaining: Math.max(0, {{ $sendLimitExpiresAt }} - Math.floor(Date.now() / 1000)),
+                                timer: null,
+                                init() {
+                                    this.timer = setInterval(() => {
+                                        this.remaining = Math.max(0, this.remaining - 1);
+
+                                        if (this.remaining === 0) {
+                                            clearInterval(this.timer);
+                                            this.timer = null;
+                                        }
+                                    }, 1000);
+                                },
+                                destroy() {
+                                    clearInterval(this.timer);
+                                },
+                                get formattedTime() {
+                                    const minutes = Math.floor(this.remaining / 60);
+                                    const seconds = this.remaining % 60;
+
+                                    return `${minutes}:${String(seconds).padStart(2, '0')}`;
+                                }
+                            }"
+                            class="text-center text-xs text-amber-500 mt-2"
+                        >
+                            <span>{{__('زمان باقی‌مانده تا درخواست مجدد:')}}</span>
+                            <span dir="ltr" class="font-mono font-semibold tabular-nums" x-text="formattedTime"></span>
+                        </div>
+                    @endif
+
                 </flux:card.body>
 
                 <flux:card.footer>
