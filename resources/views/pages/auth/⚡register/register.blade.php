@@ -1,11 +1,24 @@
 <div
-    x-data="{ fingerprintReady: false }"
-    x-init="
-        window.getFingerprint().then(value => {
-            $wire.fingerprint = value;
-            fingerprintReady = true;
-        })
-    "
+    x-data="{
+        fingerprintReady: false,
+        fingerprintError: false,
+
+        async init() {
+            try {
+                const value = await window.getFingerprint();
+
+                if (!value || !/^[a-f0-9]{32}$/.test(value)) {
+                    throw new Error('Invalid fingerprint');
+                }
+
+                await $wire.$set('fingerprint', value);
+                this.fingerprintReady = true;
+            } catch (error) {
+                this.fingerprintError = true;
+                console.error('Fingerprint initialization failed:', error);
+            }
+        }
+    }"
 >
     <flux:card body="divided" variant="soft" size="xs" class="w-75">
 
