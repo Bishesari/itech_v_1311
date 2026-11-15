@@ -199,6 +199,8 @@ return [
 
     'attributes' => [
         'number' => 'شماره موبایل',
+        'mobile' => 'شماره موبایل',
+        'verificationCode' => 'کدپیامکی',
 
     ],
 

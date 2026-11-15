@@ -236,7 +236,7 @@ class extends Component
 
         if (count($this->accounts) === 1) {
             $this->selectedPersonId = $this->accounts[0]['person_id'];
-            $this->stage = 'password';
+            $this->sendTemporaryPassword();
 
             return;
         }
@@ -290,27 +290,33 @@ class extends Component
         if ($this->stage !== 'choose-account' || ! $this->otpVerified) {
             return;
         }
+
         if ($this->accounts === []) {
             $this->stage = 'support';
 
             return;
         }
-        $this->validate([
-            'selectedPersonId' => [
-                'required',
-                'integer',
-                'in:'.implode(',', array_column($this->accounts, 'person_id')),
-            ],
-        ]);
 
-        $this->stage = 'password';
+        if (count($this->accounts) === 1) {
+            $this->selectedPersonId = $this->accounts[0]['person_id'];
+        } else {
+            $this->validate([
+                'selectedPersonId' => [
+                    'required',
+                    'integer',
+                    'in:'.implode(',', array_column($this->accounts, 'person_id')),
+                ],
+            ]);
+        }
+
+        $this->sendTemporaryPassword();
     }
 
-    public function resetPassword(SmsGateway $smsGateway): void
+    private function sendTemporaryPassword(): void
     {
+        $smsGateway = app(SmsGateway::class);
         if (
-            $this->stage !== 'password'
-            || ! $this->otpVerified
+            ! $this->otpVerified
             || $this->verifiedMobile === null
             || $this->selectedPersonId === null
         ) {
@@ -338,7 +344,9 @@ class extends Component
         }
 
         $password = PasswordGenerator::generate();
+
         $this->resetValidation('mobile');
+        $this->stage = 'choose-account';
 
         try {
             $smsGateway->sendPassword(
@@ -371,7 +379,12 @@ class extends Component
         $this->selectedPersonId = null;
         $this->accounts = [];
 
-        $this->stage = 'completed';
+        Flux::toast(
+            text: 'رمز عبور جدید با موفقیت ارسال شد.',
+            variant: 'success',
+        );
+
+        $this->redirect(route('login'));
     }
 
     public function backToMobile(): void

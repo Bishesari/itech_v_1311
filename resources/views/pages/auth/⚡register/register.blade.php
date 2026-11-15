@@ -107,6 +107,7 @@
                         <flux:otp.input />
                     </flux:otp.group>
                 </flux:otp>
+
                 <flux:text class="text-center my-2">
                     <span x-show="remaining > 0">
                         <span>{{__('زمان باقی‌مانده:')}}</span>
