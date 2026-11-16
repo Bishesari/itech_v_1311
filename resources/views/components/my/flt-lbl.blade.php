@@ -20,13 +20,18 @@
     $borderClass = $hasError
     ? 'border-red-500 focus:border-red-500'
     : 'border-gray-400 focus:border-blue-500';
+    $hasPasswordToggle = $type === 'password';
 @endphp
 
-<div class="relative">
+<div
+    class="relative"
+    x-data="{ showPassword: false }"
+>
 
     <input
         id="{{ $inputId }}"
-        type="{{ $type }}"
+        x-bind:type="{{ $hasPasswordToggle ? "showPassword ? 'text' : 'password'" : "'$type'" }}"
+        name="{{$name}}"
         wire:model{{ $modelModifier !== '' ? '.' . $modelModifier : '' }}="{{ $model ?? $name }}"
         placeholder=" "
         autocomplete="{{ $autocomplete }}"
@@ -48,6 +53,18 @@
     ",
 ]) }}
     >
+
+    @if ($hasPasswordToggle)
+        <button
+            type="button"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-blue-600 cursor-pointer"
+            @click="showPassword = !showPassword"
+            :aria-label="showPassword ? 'مخفی کردن رمز عبور' : 'نمایش رمز عبور'"
+        >
+            <flux:icon.eye x-show="!showPassword" class="size-5" />
+            <flux:icon.eye-slash x-show="showPassword" class="size-5" />
+        </button>
+    @endif
 
     <label
         for="{{ $inputId }}"

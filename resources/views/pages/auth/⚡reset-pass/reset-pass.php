@@ -262,38 +262,16 @@ class extends Component
         );
 
         if ($name !== '') {
-            return $this->maskName($name);
+            return $name;
         }
 
         $nickname = trim($person->nickname ?? '');
 
         if ($nickname !== '') {
-            return $this->maskName($nickname);
+            return $nickname;
         }
 
-        return $this->maskUsername($person->user->username);
-    }
-
-    private function maskName(string $name): string
-    {
-        $parts = preg_split('/\s+/u', trim($name), -1, PREG_SPLIT_NO_EMPTY);
-
-        return implode(' ', array_map(
-            fn (string $part) => mb_substr($part, 0, 1).str_repeat('*', max(2, mb_strlen($part) - 1)),
-            $parts,
-        ));
-    }
-
-    private function maskUsername(string $username): string
-    {
-        $length = mb_strlen($username);
-
-        if ($length <= 2) {
-            return str_repeat('*', $length);
-        }
-
-        return mb_substr($username, 0, 2)
-            .str_repeat('*', $length - 2);
+        return $person->user->username;
     }
 
     public function selectAccount(): void
@@ -390,10 +368,7 @@ class extends Component
         $this->selectedPersonId = null;
         $this->accounts = [];
 
-        Flux::toast(
-            text: 'رمز عبور جدید با موفقیت ارسال شد.',
-            variant: 'success',
-        );
+        session()->flash('status', 'رمز عبور جدید با موفقیت ارسال شد.');
 
         $this->redirect(route('login'));
     }

@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Contracts\SmsGateway;
+use App\Http\Responses\LoginResponse;
 use App\Services\Sms\SmsIrSmsGateway;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             SmsGateway::class,
             SmsIrSmsGateway::class,
+        );
+        $this->app->singleton(
+            LoginResponseContract::class,
+            LoginResponse::class,
         );
     }
 

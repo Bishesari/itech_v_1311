@@ -40,6 +40,11 @@
                 <flux:card.subheading class="font-medium! text-xs!">
                     {{ __('انتخاب حساب کاربری') }}
                 </flux:card.subheading>
+
+            @elseif ($stage === 'not-found')
+                <flux:card.subheading class="font-medium! text-xs!">
+                    {{ __('حسابی پیدا نشد') }}
+                </flux:card.subheading>
             @endif
         </flux:card.header>
 
@@ -112,6 +117,16 @@
                     >
                         {{ __('ادامه') }}
                     </flux:button>
+                    <flux:card.actions>
+                        <flux:button :href="route('login')" wire:navigate variant="subtle" icon:trailing="arrow-left-end-on-rectangle"
+                                     size="xs" class="cursor-pointer"
+                                     x-data="{ loading: false }"
+                                     @click="loading = true"
+                        >
+                            <span x-show="!loading">{{ __('ورود') }}</span>
+                            <flux:icon.loading x-show="loading" class="size-4 mx-1 text-amber-500"/>
+                        </flux:button>
+                    </flux:card.actions>
                 </flux:card.footer>
             </form>
 
@@ -192,12 +207,7 @@
                 </flux:card.body>
 
                 <flux:card.footer>
-                    <flux:button
-                        type="submit"
-                        variant="filled"
-                        color="blue"
-                        size="sm"
-                        class="cursor-pointer"
+                    <flux:button type="submit" variant="filled" color="blue" size="sm" class="cursor-pointer"
                         x-show="remaining > 0"
                     >
                         {{ __('تأیید کد') }}
@@ -219,14 +229,11 @@
             </form>
 
         @elseif ($stage === 'choose-account')
-            <form wire:submit="selectAccount" class="space-y-4">
+            <form wire:submit="selectAccount">
                 <flux:card.body>
-                    <flux:text size="sm">
-                        چند حساب با این شماره موبایل مرتبط است. حساب موردنظر خود را انتخاب کنید.
-                    </flux:text>
-
                     @if (count($accounts) > 1)
-                        <flux:radio.group wire:model="selectedPersonId">
+                        <flux:radio.group wire:model="selectedPersonId" label="{{__('حساب موردنظر خود را انتخاب کنید')}}"
+                                          variant="cards" class="flex-col">
                             @foreach ($accounts as $account)
                                 <flux:radio
                                     value="{{ $account['person_id'] }}"
@@ -250,47 +257,24 @@
                 </flux:card.body>
 
                 <flux:card.footer>
-                    <flux:button
-                        type="submit"
-                        variant="primary"
-                        class="w-full"
-                        wire:loading.attr="disabled"
-                        wire:target="selectAccount"
-                    >
-                        <span wire:loading.remove wire:target="selectAccount">
-                            {{ __('ادامه') }}
-                        </span>
-
-                        <span wire:loading wire:target="selectAccount">
-                            {{ __('در حال ارسال...') }}
-                        </span>
+                    <flux:button type="submit" variant="filled" color="green" class="cursor-pointer" size="sm">
+                        {{ __('ادامه') }}
                     </flux:button>
                 </flux:card.footer>
             </form>
 
         @elseif ($stage === 'not-found')
-            <div class="space-y-4 text-center">
-                <flux:icon
-                    name="exclamation-circle"
-                    class="mx-auto size-12 text-amber-500"
-                />
 
-                <flux:heading size="lg">
-                    حسابی پیدا نشد
-                </flux:heading>
+            <flux:card.body class="text-center">
+                <flux:icon name="exclamation-circle" class="mx-auto size-10 text-amber-500"/>
+                <flux:text class="mt-3">{{__('حساب کاربری مرتبط با این شماره موبایل پیدا نشد.')}}</flux:text>
+            </flux:card.body>
 
-                <flux:text size="sm">
-                    حساب کاربری مرتبط با این شماره موبایل پیدا نشد.
-                </flux:text>
-
-                <flux:button
-                    wire:click="backToMobile"
-                    variant="primary"
-                    class="w-full"
-                >
-                    تلاش مجدد
+            <flux:card.footer>
+                <flux:button wire:click="backToMobile" variant="filled" color="teal" class="cursor-pointer" size="sm">
+                    {{ __('تلاش مجدد') }}
                 </flux:button>
-            </div>
+            </flux:card.footer>
 
         @elseif ($stage === 'support')
             <div class="space-y-4 text-center">
