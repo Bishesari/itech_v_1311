@@ -1,22 +1,40 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark" dir="rtl">
     <head>
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <x-my.logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate class="h-9" />
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
-            <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-            </flux:sidebar.nav>
+            @php
+                $currentRole = \App\Models\Role::where(
+                    'code',
+                    session('selected_role_code')
+                )->first();
+            @endphp
+
+            @if($currentRole)
+                <div class="px-3 py-3">
+                    <div class="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
+                        <span class="size-2 shrink-0 rounded-full bg-{{ $currentRole->color ?? 'indigo' }}-500"></span>
+
+                        <div class="min-w-0 flex-1">
+                            <div class="text-xs text-zinc-500 dark:text-zinc-400">
+                                {{ __('نقش جاری') }}
+                            </div>
+                            <div class="truncate text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+                                {{ $currentRole->name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
 
             <flux:spacer />
 
