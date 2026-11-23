@@ -18,7 +18,25 @@
             @endphp
 
             @if($currentRole)
-                <div class="px-3 py-3">
+                <flux:callout icon="cube" variant="secondary" inline>
+                    <flux:callout.heading>Your is delayed</flux:callout.heading>
+
+                    <x-slot name="actions">
+                        <flux:button>Track order -></flux:button>
+                        <flux:button variant="ghost">Reschedule</flux:button>
+                    </x-slot>
+                </flux:callout>
+
+                <flux:callout icon="exclamation-triangle" variant="secondary" inline>
+                    <flux:callout.heading>Payment issue detected</flux:callout.heading>
+                    <flux:callout.text>Your last payment attempt failed. Update your billing details to prevent service interruption.</flux:callout.text>
+
+                    <x-slot name="actions">
+                        <flux:button>Update billing</flux:button>
+                    </x-slot>
+                </flux:callout>
+
+                <div>
                     <div class="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-800">
                         <span class="size-2 shrink-0 rounded-full bg-{{ $currentRole->color ?? 'indigo' }}-500"></span>
 
