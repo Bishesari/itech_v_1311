@@ -2,49 +2,60 @@
 
 namespace Database\Seeders;
 
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        User::query()->updateOrCreate(
+        $users = [
             [
+                'identity' => '2063531218',
                 'username' => 'Yasser',
-            ],
-            [
-                'person_id' => 1,
                 'password' => '673673',
-                'password_is_temporary' => true,
                 'is_active' => true,
             ],
-        );
-        User::query()->updateOrCreate(
             [
+                'identity' => '3500984886',
                 'username' => 'Neda',
-            ],
-            [
-                'person_id' => 2,
                 'password' => '14611461',
-                'password_is_temporary' => true,
                 'is_active' => true,
             ],
-        );
-
-        User::query()->updateOrCreate(
             [
+                'identity' => '3501151284',
                 'username' => 'Leila',
-            ],
-            [
-                'person_id' => 3,
                 'password' => '13611361',
-                'password_is_temporary' => true,
                 'is_active' => true,
             ],
-        );
+            [
+                'identity' => '0012345678',
+                'username' => 'Ali',
+                'password' => '123456',
+                'is_active' => true,
+            ],
+            [
+                'identity' => '0012345679',
+                'username' => 'Maryam',
+                'password' => '123456',
+                'is_active' => false,
+            ],
+        ];
+
+        foreach ($users as $item) {
+            $person = Person::where('identity', $item['identity'])
+                ->firstOrFail();
+
+            User::updateOrCreate(
+                ['username' => $item['username']],
+                [
+                    'person_id' => $person->id,
+                    'password' => $item['password'],
+                    'password_is_temporary' => true,
+                    'is_active' => $item['is_active'],
+                ],
+            );
+        }
     }
 }

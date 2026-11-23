@@ -2,69 +2,70 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mobile;
 use App\Models\MobilePerson;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Person;
 use Illuminate\Database\Seeder;
 
 class MobilePersonSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        MobilePerson::query()->updateOrCreate(
+        $relations = [
             [
-                'person_id' => 1,
-                'mobile_id' => 1,
-            ],
-            [
+                'identity' => '2063531218',
+                'number' => '09177755924',
                 'is_primary' => true,
-                'is_verified' => true,
-            ],
-        );
-
-        MobilePerson::query()->updateOrCreate(
-            [
-                'person_id' => 1,
-                'mobile_id' => 2,
             ],
             [
+                'identity' => '2063531218',
+                'number' => '09034336111',
                 'is_primary' => false,
-                'is_verified' => true,
-            ],
-        );
-
-        MobilePerson::query()->updateOrCreate(
-            [
-                'person_id' => 2,
-                'mobile_id' => 3,
             ],
             [
+                'identity' => '3500984886',
+                'number' => '09350568163',
                 'is_primary' => true,
-                'is_verified' => true,
-            ],
-        );
-        MobilePerson::query()->updateOrCreate(
-            [
-                'person_id' => 2,
-                'mobile_id' => 4,
             ],
             [
+                'identity' => '3500984886',
+                'number' => '09177729312',
                 'is_primary' => false,
-                'is_verified' => true,
-            ],
-        );
-
-        MobilePerson::query()->updateOrCreate(
-            [
-                'person_id' => 3,
-                'mobile_id' => 5,
             ],
             [
+                'identity' => '3501151284',
+                'number' => '09173751261',
                 'is_primary' => true,
-                'is_verified' => true,
             ],
-        );
+            [
+                'identity' => '0012345678',
+                'number' => '09120000001',
+                'is_primary' => true,
+            ],
+            [
+                'identity' => '0012345679',
+                'number' => '09120000002',
+                'is_primary' => true,
+            ],
+        ];
+
+        foreach ($relations as $item) {
+            $person = Person::where('identity', $item['identity'])
+                ->firstOrFail();
+
+            $mobile = Mobile::where('number', $item['number'])
+                ->firstOrFail();
+
+            MobilePerson::updateOrCreate(
+                [
+                    'person_id' => $person->id,
+                    'mobile_id' => $mobile->id,
+                ],
+                [
+                    'is_primary' => $item['is_primary'],
+                    'is_verified' => true,
+                ],
+            );
+        }
     }
 }

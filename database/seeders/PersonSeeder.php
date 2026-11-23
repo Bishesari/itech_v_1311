@@ -9,46 +9,51 @@ use Illuminate\Database\Seeder;
 
 class PersonSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Person::query()->updateOrCreate(
+        $people = [
             [
                 'identity' => '2063531218',
-            ],
-            [
-                'nationality' => Nationality::Iranian,
                 'gender' => Gender::MALE,
                 'first_name_fa' => 'یاسر',
                 'last_name_fa' => 'بیشه سری',
             ],
-        );
-
-        Person::query()->updateOrCreate(
             [
                 'identity' => '3500984886',
-            ],
-            [
-                'nationality' => Nationality::Iranian,
                 'gender' => Gender::FEMALE,
                 'first_name_fa' => 'ندا',
                 'last_name_fa' => 'بخشی زاده',
             ],
-        );
-
-        Person::query()->updateOrCreate(
             [
                 'identity' => '3501151284',
-            ],
-            [
-                'nationality' => Nationality::Iranian,
                 'gender' => Gender::FEMALE,
                 'first_name_fa' => 'سیده لیلا',
                 'last_name_fa' => 'امامی',
             ],
-        );
+            [
+                'identity' => '0012345678',
+                'gender' => Gender::MALE,
+                'first_name_fa' => 'علی',
+                'last_name_fa' => 'آزمایشی',
+            ],
+            [
+                'identity' => '0012345679',
+                'gender' => Gender::FEMALE,
+                'first_name_fa' => 'مریم',
+                'last_name_fa' => 'آزمایشی',
+            ],
+        ];
 
+        foreach ($people as $person) {
+            Person::updateOrCreate(
+                ['identity' => $person['identity']],
+                [
+                    'nationality' => Nationality::Iranian,
+                    'gender' => $person['gender'],
+                    'first_name_fa' => $person['first_name_fa'],
+                    'last_name_fa' => $person['last_name_fa'],
+                ],
+            );
+        }
     }
 }

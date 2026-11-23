@@ -89,7 +89,7 @@ final class LoginResponse implements LoginResponseContract
         $assignment = $assignments->first();
 
         $request->session()->put([
-            'selected_role_code' => $assignment->role->code,
+            'selected_role_code' => $assignment->role->code->value,
             'selected_role_assignment_id' => $assignment->id,
             'selected_membership_id' => $assignment->membership_id,
         ]);
