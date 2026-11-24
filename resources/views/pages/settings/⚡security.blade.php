@@ -81,11 +81,15 @@ new #[Title('Security settings')] class extends Component {
 
         Auth::user()->update([
             'password' => $validated['password'],
+            'password_is_temporary' => false,
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');
 
-        Flux::toast(variant: 'success', text: __('Password updated.'));
+        Flux::toast(
+            variant: 'success',
+            text: __('رمز عبور با موفقیت تغییر کرد.')
+        );
     }
 
     /**
