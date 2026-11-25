@@ -15,8 +15,6 @@ class MobileSeeder extends Seeder
             '09350568163',
             '09177729312',
             '09173751261',
-            '09120000001',
-            '09120000002',
         ];
 
         foreach ($mobiles as $number) {

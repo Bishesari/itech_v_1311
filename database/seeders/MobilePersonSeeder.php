@@ -37,16 +37,6 @@ class MobilePersonSeeder extends Seeder
                 'number' => '09173751261',
                 'is_primary' => true,
             ],
-            [
-                'identity' => '0012345678',
-                'number' => '09120000001',
-                'is_primary' => true,
-            ],
-            [
-                'identity' => '0012345679',
-                'number' => '09120000002',
-                'is_primary' => true,
-            ],
         ];
 
         foreach ($relations as $item) {

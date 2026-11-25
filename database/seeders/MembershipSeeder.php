@@ -13,19 +13,7 @@ class MembershipSeeder extends Seeder
     {
         $memberships = [
             [
-                'identity' => '2063531218',
-                'branch_code' => 'BU001',
-            ],
-            [
-                'identity' => '2063531218',
-                'branch_code' => 'BU002',
-            ],
-            [
                 'identity' => '3501151284',
-                'branch_code' => 'BU001',
-            ],
-            [
-                'identity' => '0012345679',
                 'branch_code' => 'BU001',
             ],
         ];

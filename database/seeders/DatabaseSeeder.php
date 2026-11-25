@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             MembershipSeeder::class,
             RoleAssignmentSeeder::class,
+
+            FieldSeeder::class,
         ]);
     }
 }

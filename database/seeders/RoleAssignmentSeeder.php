@@ -29,16 +29,6 @@ class RoleAssignmentSeeder extends Seeder
                 'role' => RoleCode::Instructor,
                 'branch_code' => 'BU001',
             ],
-            [
-                'identity' => '3501151284',
-                'role' => RoleCode::Student,
-                'branch_code' => 'BU001',
-            ],
-            [
-                'identity' => '0012345679',
-                'role' => RoleCode::Instructor,
-                'branch_code' => 'BU001',
-            ],
         ];
 
         foreach ($assignments as $item) {

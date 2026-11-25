@@ -29,18 +29,6 @@ class UserSeeder extends Seeder
                 'password' => '13611361',
                 'is_active' => true,
             ],
-            [
-                'identity' => '0012345678',
-                'username' => 'Ali',
-                'password' => '123456',
-                'is_active' => true,
-            ],
-            [
-                'identity' => '0012345679',
-                'username' => 'Maryam',
-                'password' => '123456',
-                'is_active' => false,
-            ],
         ];
 
         foreach ($users as $item) {

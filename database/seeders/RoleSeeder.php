@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         $roles = [
             [
                 'code' => RoleCode::SuperAdmin->value,
-                'name' => 'مدیر کل سیستم',
+                'name' => 'مدیر سیستم',
                 'scope' => RoleScope::System->value,
                 'description' => 'مدیر و ناظر کل سامانه با دسترسی مدیریتی در سطح سیستم.',
                 'color' => 'red',
@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
                 'name' => 'مؤسس',
                 'scope' => RoleScope::Institute->value,
                 'description' => 'مالک و مدیر کل آموزشگاه با نظارت بر تمام شعب و امور آموزشگاه.',
-                'color' => 'teal',
+                'color' => 'purple',
             ],
             [
                 'code' => RoleCode::BranchManager->value,
@@ -48,7 +48,7 @@ class RoleSeeder extends Seeder
                 'name' => 'کارمند اداری',
                 'scope' => RoleScope::Branch->value,
                 'description' => 'مسئول امور اجرایی، ثبت‌نام و فعالیت‌های اداری یک شعبه.',
-                'color' => 'fuchsia',
+                'color' => 'cyan',
             ],
             [
                 'code' => RoleCode::Accountant->value,
@@ -62,7 +62,7 @@ class RoleSeeder extends Seeder
                 'name' => 'مدرس',
                 'scope' => RoleScope::Branch->value,
                 'description' => 'مسئول آموزش و ارزیابی هنرجویان کلاس‌های خود.',
-                'color' => 'cyan',
+                'color' => 'green',
             ],
             [
                 'code' => RoleCode::Student->value,
@@ -71,6 +71,7 @@ class RoleSeeder extends Seeder
                 'description' => 'هنرجوی شرکت‌کننده در دوره‌های آموزشی.',
                 'color' => 'lime',
             ],
+
         ];
 
         foreach ($roles as $role) {

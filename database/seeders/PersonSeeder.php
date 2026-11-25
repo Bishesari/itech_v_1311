@@ -30,18 +30,6 @@ class PersonSeeder extends Seeder
                 'first_name_fa' => 'سیده لیلا',
                 'last_name_fa' => 'امامی',
             ],
-            [
-                'identity' => '0012345678',
-                'gender' => Gender::MALE,
-                'first_name_fa' => 'علی',
-                'last_name_fa' => 'آزمایشی',
-            ],
-            [
-                'identity' => '0012345679',
-                'gender' => Gender::FEMALE,
-                'first_name_fa' => 'مریم',
-                'last_name_fa' => 'آزمایشی',
-            ],
         ];
 
         foreach ($people as $person) {
