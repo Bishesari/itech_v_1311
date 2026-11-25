@@ -103,7 +103,7 @@
 
 
         {{-- پایین فوتر --}}
-        <div class="flex flex-col items-center gap-4 text-center">
+        <div class="flex flex-col items-center gap-1 text-center">
 
             <flux:text class="text-sm leading-7">
                 <span class="font-semibold">&copy;</span>
@@ -112,7 +112,7 @@
                 {{ jdate('Y', time(), '', '', 'en') }}
             </flux:text>
 
-            <flux:text class="text-xs text-zinc-500 dark:text-zinc-500">
+            <flux:text class="text-xs text-zinc-500 dark:text-zinc-500 font-mono">
                 {{ __('S.V: 13.1.1') }}
                 <span class="mx-1">-</span>
                 {{ __('L.V:') }}
