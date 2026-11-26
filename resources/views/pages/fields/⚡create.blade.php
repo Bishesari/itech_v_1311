@@ -7,9 +7,6 @@ new class extends Component {
     public string $name = '';
     public string $slug = '';
 
-    public bool $show_btn = true;
-
-
     public function save(): void
     {
         $validated = $this->validate([
@@ -36,25 +33,22 @@ new class extends Component {
         $this->modal('new-field')->close();
 
         $this->dispatch('field-created', id: $field->id);
+
+    }
+    public function reset_prop(): void
+    {
+        $this->reset();
+        $this->resetErrorBag();
     }
 };
 ?>
 <div>
-    @if($show_btn)
 
-        <flux:button
-            type="button"
-            variant="primary"
-            color="blue"
-            icon="plus"
-            size="sm"
-            class="cursor-pointer"
-            x-on:click="$flux.modal('new-field').show()"
-        >
-            {{ __('رشته جدید') }}
-        </flux:button>
+    <flux:tooltip content="افزودن رشته جدید" position="right">
+        <flux:icon.plus-circle variant="micro" class="cursor-pointer size-5 text-blue-500 mr-4"
+                               x-on:click="$flux.modal('new-field').show()"/>
+    </flux:tooltip>
 
-    @endif
     <flux:modal name="new-field" :show="$errors->isNotEmpty()" focusable class="md:w-96" @close="reset_prop"
                 :dismissible="false">
         <div class="space-y-6">
@@ -86,7 +80,6 @@ new class extends Component {
                     maxlength="80"
                     class="font-semibold text-base!"
                 />
-
 
                 <div class="flex">
                     <flux:spacer/>

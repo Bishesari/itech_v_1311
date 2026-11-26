@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
+    <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
                 <x-my.logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate class="h-9" />
@@ -11,23 +11,27 @@
             </flux:sidebar.header>
 
             @php
-                $currentRole = \App\Models\Role::where(
-                    'code',
-                    session('selected_role_code')
-                )->first();
+                $roleCode = session('selected_role_code', 'newcomer');
+                $currentRole = \App\Models\Role::query()->where('code', $roleCode)->first(['name', 'color']);
             @endphp
 
             @if($currentRole)
-                <flux:badge color="{{$currentRole->color}}" class="flex justify-between" size="sm">
+                <flux:badge :color="$currentRole->color" class="flex justify-between" size="sm">
                     <span>{{ $currentRole->name }}</span>
-                    <flux:button href="{{route('roles.select')}}" size="xs" variant="filled" class="cursor-pointer"
+
+                    <flux:button
+                        href="{{ route('roles.select') }}"
+                        size="xs"
+                        variant="filled"
+                        class="cursor-pointer"
                         icon="arrows-right-left"
                         tooltip="{{ __('تغییر نقش') }}"
                     />
                 </flux:badge>
             @endif
+            @includeIf('partials.sidebar.' . str_replace('_', '-', $roleCode))
 
-            @include('partials.sidebar.role')
+
 
 
 
@@ -104,7 +108,7 @@
         {{ $slot }}
 
         @persist('toast')
-            <flux:toast.group>
+        <flux:toast.group position="top center">
                 <flux:toast />
             </flux:toast.group>
         @endpersist

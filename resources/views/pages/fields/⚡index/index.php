@@ -71,9 +71,8 @@ class extends Component
         $this->focusRecord($id);
         Flux::toast(
             heading: 'ثبت شد.',
-            text: 'حوزه جدید با موفقیت ثبت شد.',
+            text: 'رشته جدید با موفقیت ثبت شد.',
             variant: 'success',
-            position: 'top right',
         );
     }
 
@@ -86,7 +85,6 @@ class extends Component
             heading: 'تغییرات اعمال شد.',
             text: 'اطلاعات حوزه با موفقیت ویرایش شد.',
             variant: 'warning',
-            position: 'top right',
         );
     }
 
@@ -111,5 +109,9 @@ class extends Component
         $this->gotoPage($page);
 
         $this->highlightedId = $field->id;
+    }
+    public function updatingPage(): void
+    {
+        $this->highlightedId = null;
     }
 };
